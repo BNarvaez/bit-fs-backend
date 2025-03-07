@@ -2,6 +2,7 @@ import 'dotenv/config';
 import ConexionDb from './conexiones/db.js';
 import servidor from './server.js';
 
+
 const puerto = process.env.PORT || 8080;
 
 let mensaje = '';
@@ -17,3 +18,5 @@ try {
 } finally {
   console.log('Esto se ejecuta siempre');
 }
+
+
