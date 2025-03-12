@@ -45,40 +45,43 @@ class ProductosController {
         }
     }
 
-    async actualizar(solicitud, respuesta){
+    async actualizar(solicitud, respuesta) { 
         try {
-            console.log('id: ', solicitud.params.id);
-            console.log('body: ', solicitud.body);
-            const resultado = await ProductosModel.update(
-                solicitud.params.id,
-                solicitud.body,
-            )
-            respuesta.json({
-                mensaje: "Producto actualizado", 
-                data: resultado,
-            });
+          console.log("id: ", solicitud.params.id);
+          console.log("body: ", solicitud.body);
+      
+          const resultado = await ProductosModel.update(
+            solicitud.params.id,
+            solicitud.body
+          );
+      
+          respuesta.json({ 
+            mensaje: "Producto actualizado",
+            data: resultado,
+          });
         } catch (error) {
-            respuesta.json({
-                mensaje: "Ocurrió un error al actualizar el producto", 
+          respuesta.status(500).json({ 
+            mensaje: "Ocurrió un error al actualizar el producto",
+            data: error,
+          });
+        }
+      }
+    
+      async eliminar(solicitud, respuesta) {
+        try {
+            const resultado = await ProductosModel.findByIdAndDelete(solicitud.params.id);
+            if (!resultado) {
+                return respuesta.status(404).json({ mensaje: "Producto no encontrado" });
+            }
+            respuesta.json({ mensaje: "Producto eliminado", data: resultado });
+        } catch (error) {
+            respuesta.status(500).json({
+                mensaje: "Ocurrió un error al eliminar el producto",
                 data: error
             });
         }
     }
     
-    async eliminar(solicitud, respuesta){
-        try {
-            await ProductosModel.delete(solicitud.params.id)
-            respuesta.json({
-                mensaje: "Producto eliminado", 
-                data: null
-            });
-        } catch (error) {
-            respuesta.json({
-                mensaje: "Ocurrió un error al eliminar el producto", 
-                data: error
-            });
-        }
-    }
 }
 
 

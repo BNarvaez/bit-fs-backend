@@ -20,11 +20,11 @@ class ProductosModel {
     }
 
     async update(id, producto){
-        return await ProductosSchema.findByIdAndUpdate({_id: new mongoose.Type.ObjectId(id)}, producto);
+        return await ProductosSchema.findByIdAndUpdate({_id: new mongoose.Types.ObjectId(id)}, producto);
     }
 
     async delete(id){
-        return await ProductosSchema.findByIdAndDelete({_id: new mongoose.Type.ObjectId(id)});
+        return await ProductosSchema.findByIdAndDelete({_id: new mongoose.Types.ObjectId(id)});
     }
 }
 
