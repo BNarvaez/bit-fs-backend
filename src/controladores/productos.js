@@ -69,12 +69,11 @@ class ProductosController {
     
       async eliminar(solicitud, respuesta) {
         try {
-            const resultado = await ProductosModel.findByIdAndDelete(solicitud.params.id);
-            if (!resultado) {
-                return respuesta.status(404).json({ mensaje: "Producto no encontrado" });
-            }
-            respuesta.json({ mensaje: "Producto eliminado", data: resultado });
+            console.log(solicitud.params.id);
+            await ProductosModel.delete(solicitud.params.id);
+            respuesta.json({ mensaje: "Producto eliminado", data: null });
         } catch (error) {
+            console.log(error);
             respuesta.status(500).json({
                 mensaje: "Ocurrió un error al eliminar el producto",
                 data: error
